@@ -1,0 +1,54 @@
+
+
+           Vou colocar aqui alguns comandos que irao se repetir muitas vezes durante o codigo para nao ficar sempre repetindo a mesma coisa, poluindo o codigo
+
+
+
+
+            using System.Data.SqlClient;                                     // BiBlioteca responsavel por prover todos os comandos Sql necessarios para o funconamento do Sitema
+
+
+
+            con.Open();                                                       // abrindo o banco de dados usando a string de conexao 
+             
+            string query = "select * from table";                            // criando uma string que receberá todos os valores existentes na tabela
+
+            SqlDataAdapter sda = new SqlDataAdapter(query, con);             //O SqlDataAdapter  serve como uma ponte entre um DataSet e SQL Server para recuperar e salvar dados.
+                                                                             //A SqlDataAdapter fornece o mapeamentoFill
+           
+            SqlCommandBuilder builder = new SqlCommandBuilder(sda);         // Gera automaticamente comandos para tabela simples usados para conciliar as alterações feitas em um DataSet 
+                                                                            //associado a um banco de dados SQL Server. Esta classe não pode ser herdada
+
+            var ds = new DataSet();                                         // variavel ds = novo DataSet que é um cache na memória de dados recuperados de uma fonte de dados, 
+                                                                            // basicamnete uma coleção de DataTable objetos, que você pode relacionar uns com os outros 
+
+            sda.Fill(ds);                                                   // Sda, que contem os dados da minha tabela usa o metodo para recupera linhas da fonte de dados usando
+                                                                            //  a instrução SELECT especificada por uma propriedade associada SelectCommand, esses dados irao preencher a nova tabela ds
+
+            UsersGV.DataSource = ds.Tables[0];                              // A UsersGv, nome dado ao datagrid no projeto forms, ira ter sua fonte de dados proveniente da primeira coluna da tabela ds
+                                                                           //que por sua vez sera preenchida com os dados de sda que recebera os dados escritos nos textbox pelo usuario
+                                                                           
+
+            con.Close();                                                    // fechando a conexao com o databasse
+
+
+
+             cmd.ExecuteNonQuery();                                        // um comando que ira retornar certos erros relacionados ao banco de dados, ex: caso a conexo com o database nao ocorra, 
+                                                                           //  exista algum erro de sintaxe ou o usuario tenha passado um valor invalido ao tipo dele
+
+
+
+            this.Hide();
+            UserOrder order = new UserOrder();                              //codigo usado em botoes para transitar pelo forms como se fosse a tag <a href=""></a> no html
+            order.Show();
+
+
+
+
+
+
+
+
+
+
+
